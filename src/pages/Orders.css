@@ -1,0 +1,76 @@
+/* Orders Page Styles */
+.orders-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.orders-header {
+  margin-bottom: 2rem;
+}
+
+.orders-header h1 {
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.orders-header p {
+  color: var(--text-secondary);
+  margin: 0;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .orders-header h1 {
+    font-size: 1.75rem;
+  }
+}
+
+/* Contenido */
+.orders-content {
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 3rem 2rem;
+}
+
+@media (max-width: 768px) {
+  .orders-content {
+    padding: 2rem 1.5rem;
+  }
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.empty-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  opacity: 0.6;
+}
+
+.empty-message {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 0.5rem 0;
+}
+
+.empty-subtitle {
+  color: var(--text-secondary);
+  margin: 0;
+  font-size: 0.9375rem;
+}
+
+@media (max-width: 768px) {
+  .empty-icon {
+    font-size: 2.5rem;
+  }
+
+  .empty-message {
+    font-size: 1.125rem;
+  }
+}

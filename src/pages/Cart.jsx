@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { CartContext } from '../context/CartContext'
+import { MinusIcon, PlusIcon, TrashIcon } from '../components/Icons'
 import './Cart.css'
 
 const Cart = () => {
@@ -16,12 +17,12 @@ const Cart = () => {
   if (cartItems.length === 0) {
     return (
       <div className="cart-container">
-        <h1>🛒 Carrito</h1>
+        <h1>Carrito de Compras</h1>
         <div className="empty-cart">
           <p className="empty-cart-message">Tu carrito está vacío</p>
-          <p className="empty-cart-subtitle">¡Agrega productos del menú para comenzar!</p>
+          <p className="empty-cart-subtitle">Agrega productos del menú para comenzar</p>
           <Link to="/menu" className="continue-shopping-btn">
-            Ir al menú
+            Explorar Menú
           </Link>
         </div>
       </div>
@@ -30,7 +31,7 @@ const Cart = () => {
 
   return (
     <div className="cart-container">
-      <h1>🛒 Carrito</h1>
+      <h1>Carrito de Compras</h1>
 
       <div className="cart-content">
         {/* Listado de productos */}
@@ -47,9 +48,9 @@ const Cart = () => {
                 <button
                   className="qty-btn"
                   onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                  title="Disminuir cantidad"
+                  aria-label={`Disminuir cantidad de ${item.name}`}
                 >
-                  −
+                  <MinusIcon size={16} />
                 </button>
                 <input
                   type="number"
@@ -60,13 +61,14 @@ const Cart = () => {
                     updateQuantity(item.id, value)
                   }}
                   className="qty-input"
+                  aria-label={`Cantidad de ${item.name}`}
                 />
                 <button
                   className="qty-btn"
                   onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                  title="Aumentar cantidad"
+                  aria-label={`Aumentar cantidad de ${item.name}`}
                 >
-                  +
+                  <PlusIcon size={16} />
                 </button>
               </div>
 
@@ -79,9 +81,10 @@ const Cart = () => {
               <button
                 className="remove-btn"
                 onClick={() => removeFromCart(item.id)}
+                aria-label={`Eliminar ${item.name} del carrito`}
                 title="Eliminar del carrito"
               >
-                🗑️
+                <TrashIcon size={18} />
               </button>
             </div>
           ))}
@@ -89,21 +92,21 @@ const Cart = () => {
 
         {/* Resumen del carrito */}
         <div className="cart-summary">
-          <h2>Resumen</h2>
+          <h2>Resumen de Compra</h2>
 
           <div className="summary-items">
             <div className="summary-row">
-              <span>Subtotal ({cartItems.length} items):</span>
+              <span>Subtotal ({cartItems.length} {cartItems.length === 1 ? 'artículo' : 'artículos'}):</span>
               <span>${total.toFixed(2)}</span>
             </div>
 
             <div className="summary-row">
               <span>Envío:</span>
-              <span>Gratis</span>
+              <span className="free-shipping">Gratis</span>
             </div>
 
             <div className="summary-row">
-              <span>Impuestos:</span>
+              <span>Impuestos (10%):</span>
               <span>${(total * 0.1).toFixed(2)}</span>
             </div>
           </div>
@@ -119,19 +122,21 @@ const Cart = () => {
             <button
               className="checkout-btn"
               onClick={handleCheckout}
+              aria-label="Continuar con la compra"
             >
-              Continuar con la compra
+              Continuar con la Compra
             </button>
 
             <Link to="/menu" className="continue-shopping-btn secondary">
-              Seguir comprando
+              Seguir Comprando
             </Link>
 
             <button
               className="clear-cart-btn"
               onClick={clearCart}
+              aria-label="Vaciar carrito"
             >
-              Vaciar carrito
+              Vaciar Carrito
             </button>
           </div>
         </div>

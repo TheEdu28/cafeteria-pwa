@@ -1,0 +1,53 @@
+/* Schedule Page Styles */
+.schedule-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.schedule-header {
+  margin-bottom: 2rem;
+}
+
+.schedule-header h1 {
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.schedule-header p {
+  color: var(--text-secondary);
+  margin: 0;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .schedule-header h1 {
+    font-size: 1.75rem;
+  }
+}
+
+/* Contenido */
+.schedule-content {
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 3rem 2rem;
+}
+
+@media (max-width: 768px) {
+  .schedule-content {
+    padding: 2rem 1.5rem;
+  }
+}
+
+.schedule-info {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.schedule-info p {
+  color: var(--text-secondary);
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+}

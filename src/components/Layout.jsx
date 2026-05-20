@@ -1,6 +1,13 @@
 import { Link, useLocation } from 'react-router-dom'
 import { useContext } from 'react'
 import { CartContext } from '../context/CartContext'
+import {
+  CoffeeIcon,
+  ShoppingCartIcon,
+  HomeIcon,
+  MenuIcon,
+  OrdersIcon
+} from './Icons'
 import './Layout.css'
 
 const Layout = ({ children }) => {
@@ -12,61 +19,75 @@ const Layout = ({ children }) => {
   return (
     <div className="layout">
       {/* Navbar superior */}
-      <nav className="navbar">
-        <div className="navbar-content">
-          <Link to="/" className="navbar-logo">
-            ☕ Cafetería PWA
+      <header className="navbar" role="banner">
+        <nav className="navbar-content" aria-label="Navegación principal">
+          <Link to="/" className="navbar-logo" aria-label="Cafetería PWA - Inicio">
+            <CoffeeIcon size={28} className="logo-icon" />
+            <span className="logo-text">Cafetería</span>
           </Link>
           <div className="navbar-spacer"></div>
-          <Link to="/cart" className="navbar-cart">
-            🛒 Carrito
-            {itemCount > 0 && <span className="cart-badge">{itemCount}</span>}
+          <Link to="/cart" className="navbar-cart" aria-label={`Carrito${itemCount > 0 ? ` con ${itemCount} artículos` : ''}`}>
+            <ShoppingCartIcon size={24} className="cart-icon" />
+            <span className="cart-text">Carrito</span>
+            {itemCount > 0 && <span className="cart-badge" aria-label={`${itemCount} artículos`}>{itemCount}</span>}
           </Link>
-        </div>
-      </nav>
+        </nav>
+      </header>
 
       {/* Espacio principal */}
-      <main className="main-content">
+      <main className="main-content" role="main">
         {children}
       </main>
 
       {/* Navegación inferior móvil */}
-      <nav className="bottom-nav">
+      <nav className="bottom-nav" aria-label="Navegación móvil" role="navigation">
         <Link
           to="/"
           className={`nav-item ${isActive('/') ? 'active' : ''}`}
-          title="Inicio"
+          aria-label="Inicio"
+          aria-current={isActive('/') ? 'page' : undefined}
         >
-          <span className="nav-icon">🏠</span>
+          <span className="nav-icon">
+            <HomeIcon size={20} />
+          </span>
           <span className="nav-label">Inicio</span>
         </Link>
 
         <Link
           to="/menu"
           className={`nav-item ${isActive('/menu') ? 'active' : ''}`}
-          title="Menú"
+          aria-label="Menú"
+          aria-current={isActive('/menu') ? 'page' : undefined}
         >
-          <span className="nav-icon">📋</span>
+          <span className="nav-icon">
+            <MenuIcon size={20} />
+          </span>
           <span className="nav-label">Menú</span>
         </Link>
 
         <Link
           to="/orders"
           className={`nav-item ${isActive('/orders') ? 'active' : ''}`}
-          title="Pedidos"
+          aria-label="Pedidos"
+          aria-current={isActive('/orders') ? 'page' : undefined}
         >
-          <span className="nav-icon">📦</span>
+          <span className="nav-icon">
+            <OrdersIcon size={20} />
+          </span>
           <span className="nav-label">Pedidos</span>
         </Link>
 
         <Link
           to="/cart"
           className={`nav-item ${isActive('/cart') ? 'active' : ''}`}
-          title="Carrito"
+          aria-label={`Carrito${itemCount > 0 ? ` con ${itemCount} artículos` : ''}`}
+          aria-current={isActive('/cart') ? 'page' : undefined}
         >
-          <span className="nav-icon">🛒</span>
+          <span className="nav-icon">
+            <ShoppingCartIcon size={20} />
+          </span>
           <span className="nav-label">Carrito</span>
-          {itemCount > 0 && <span className="nav-badge">{itemCount}</span>}
+          {itemCount > 0 && <span className="nav-badge" aria-label={`${itemCount} artículos`}>{itemCount}</span>}
         </Link>
       </nav>
     </div>
