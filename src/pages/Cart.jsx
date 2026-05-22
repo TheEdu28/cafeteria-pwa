@@ -41,6 +41,16 @@ const Cart = () => {
               <div className="item-info">
                 <h3 className="item-name">{item.name}</h3>
                 <p className="item-category">{item.category}</p>
+                {item.customizations && item.customizations.length > 0 && (
+                  <div className="item-customizations">
+                    <p className="customizations-label">Personalizaciones:</p>
+                    <ul className="customizations-list">
+                      {item.customizations.map(custom => (
+                        <li key={custom.id} className="customization-item">{custom.label}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
                 <p className="item-price">${item.price}</p>
               </div>
 

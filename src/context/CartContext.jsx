@@ -4,21 +4,31 @@ export const CartContext = createContext()
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([])
+  const [selectedSchedule, setSelectedSchedule] = useState(null)
+  const [completedOrders, setCompletedOrders] = useState(() => {
+    const saved = localStorage.getItem('completedOrders')
+    return saved ? JSON.parse(saved) : []
+  })
 
-  // Agregar producto al carrito
-  const addToCart = useCallback((product, quantity = 1) => {
+  // Agregar producto al carrito con personalizaciones opcionales
+  const addToCart = useCallback((product, quantity = 1, customizations = []) => {
     setCartItems(prevItems => {
-      const existingItem = prevItems.find(item => item.id === product.id)
+      // Crear identificador único basado en producto y personalizaciones
+      const customizationKey = JSON.stringify(customizations.sort((a, b) => a.id.localeCompare(b.id)))
+      const existingItem = prevItems.find(item => 
+        item.id === product.id && 
+        JSON.stringify((item.customizations || []).sort((a, b) => a.id.localeCompare(b.id))) === customizationKey
+      )
       
       if (existingItem) {
         return prevItems.map(item =>
-          item.id === product.id
+          item === existingItem
             ? { ...item, quantity: item.quantity + quantity }
             : item
         )
       }
       
-      return [...prevItems, { ...product, quantity }]
+      return [...prevItems, { ...product, quantity, customizations }]
     })
   }, [])
 
@@ -58,6 +68,43 @@ export const CartProvider = ({ children }) => {
     setCartItems([])
   }, [])
 
+  // Guardar horario seleccionado
+  const setSchedule = useCallback((schedule) => {
+    setSelectedSchedule(schedule)
+  }, [])
+
+  // Completar pedido y guardarlo en historial
+  const completeOrder = useCallback((orderData) => {
+    const newOrder = {
+      id: Date.now(),
+      items: cartItems,
+      schedule: selectedSchedule,
+      total,
+      timestamp: new Date().toISOString(),
+      status: 'pending',
+      ...orderData
+    }
+    
+    const updatedOrders = [...completedOrders, newOrder]
+    setCompletedOrders(updatedOrders)
+    localStorage.setItem('completedOrders', JSON.stringify(updatedOrders))
+    
+    // Limpiar carrito y horario después de completar
+    setCartItems([])
+    setSelectedSchedule(null)
+    
+    return newOrder
+  }, [cartItems, selectedSchedule, total, completedOrders])
+
+  // Cancelar pedido
+  const cancelOrder = useCallback((orderId) => {
+    const updatedOrders = completedOrders.map(order =>
+      order.id === orderId ? { ...order, status: 'cancelled' } : order
+    )
+    setCompletedOrders(updatedOrders)
+    localStorage.setItem('completedOrders', JSON.stringify(updatedOrders))
+  }, [completedOrders])
+
   const value = {
     cartItems,
     addToCart,
@@ -65,7 +112,12 @@ export const CartProvider = ({ children }) => {
     removeFromCart,
     clearCart,
     total,
-    itemCount
+    itemCount,
+    selectedSchedule,
+    setSchedule,
+    completedOrders,
+    completeOrder,
+    cancelOrder
   }
 
   return (

@@ -76,19 +76,6 @@ const Layout = ({ children }) => {
           </span>
           <span className="nav-label">Pedidos</span>
         </Link>
-
-        <Link
-          to="/cart"
-          className={`nav-item ${isActive('/cart') ? 'active' : ''}`}
-          aria-label={`Carrito${itemCount > 0 ? ` con ${itemCount} artículos` : ''}`}
-          aria-current={isActive('/cart') ? 'page' : undefined}
-        >
-          <span className="nav-icon">
-            <ShoppingCartIcon size={20} />
-          </span>
-          <span className="nav-label">Carrito</span>
-          {itemCount > 0 && <span className="nav-badge" aria-label={`${itemCount} artículos`}>{itemCount}</span>}
-        </Link>
       </nav>
     </div>
   )

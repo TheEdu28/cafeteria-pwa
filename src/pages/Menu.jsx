@@ -87,22 +87,28 @@ const Menu = () => {
             key={product.id} 
             className={`product-card ${!product.available ? 'unavailable' : ''}`}
           >
-            <div className="product-header">
-              <h3 className="product-name">{product.name}</h3>
-              {!product.available && (
-                <span className="unavailable-badge" aria-label="No disponible">
-                  No disponible
+            <Link 
+              to={`/product/${product.id}`}
+              className="product-card-link"
+              aria-label={`Ver detalles de ${product.name}`}
+            >
+              <div className="product-header">
+                <h3 className="product-name">{product.name}</h3>
+                {!product.available && (
+                  <span className="unavailable-badge" aria-label="No disponible">
+                    No disponible
+                  </span>
+                )}
+              </div>
+
+              <p className="product-description">{product.description}</p>
+
+              <div className="product-meta">
+                <span className="category-badge" aria-label={`Categoría: ${product.category}`}>
+                  {product.category}
                 </span>
-              )}
-            </div>
-
-            <p className="product-description">{product.description}</p>
-
-            <div className="product-meta">
-              <span className="category-badge" aria-label={`Categoría: ${product.category}`}>
-                {product.category}
-              </span>
-            </div>
+              </div>
+            </Link>
 
             <div className="product-footer">
               <span className="product-price" aria-label={`Precio: $${product.price}`}>
@@ -113,11 +119,12 @@ const Menu = () => {
                 <button
                   className={`add-btn ${addedProduct === product.id ? 'added' : ''}`}
                   onClick={() => handleAddToCart(product)}
-                  aria-label={`Agregar ${product.name} al carrito`}
+                  aria-label={`Agregar ${product.name} al carrito sin personalizar`}
                   aria-pressed={addedProduct === product.id}
+                  title="Agregar sin personalizar. Click en el producto para más opciones."
                 >
                   <span className="btn-text">
-                    {addedProduct === product.id ? 'Agregado' : 'Agregar'}
+                    {addedProduct === product.id ? '✓ Agregado' : '+'}
                   </span>
                 </button>
               ) : (
@@ -126,7 +133,7 @@ const Menu = () => {
                   disabled
                   aria-label={`${product.name} no disponible`}
                 >
-                  <span className="btn-text">No disponible</span>
+                  <span className="btn-text">✕</span>
                 </button>
               )}
             </div>
