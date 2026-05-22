@@ -3,461 +3,559 @@ export const products = [
   {
     id: 1,
     name: "Desayuno Completo",
-    description: "Huevos, tocino, pan tostado y frutas frescas",
+    description: "Huevo, frijoles, café y pan tostado",
     price: 120,
     category: "Desayunos",
     available: true,
     options: [
-      { id: "huevos_revueltos", label: "Huevos revueltos" },
-      { id: "pan_tostado", label: "Pan tostado" },
-      { id: "sin_tocino", label: "Sin tocino" }
+      { id: "huevo_revuelto", label: "Huevo revuelto" },
+      { id: "huevo_frito", label: "Huevo frito" },
+      { id: "sin_cafe", label: "Sin café" }
     ]
   },
   {
     id: 2,
-    name: "Omelette de Queso",
-    description: "Omelette relleno de queso oaxaca y epazote",
-    price: 95,
-    category: "Desayunos",
-    available: true,
-    options: [
-      { id: "extra_queso", label: "Extra queso" },
-      { id: "sin_epazote", label: "Sin epazote" },
-      { id: "verduras_extra", label: "Verduras extra" }
-    ]
-  },
-  {
-    id: 3,
-    name: "Pancakes de Avena",
-    description: "Pancakes caseros acompañados con mermelada",
+    name: "Orden de Huevos",
+    description: "Dos huevos preparados a tu gusto",
     price: 85,
     category: "Desayunos",
     available: true,
     options: [
-      { id: "mas_mermelada", label: "Más mermelada" },
-      { id: "miel_extra", label: "Miel extra" },
-      { id: "sin_azucar", label: "Sin azúcar" }
+      { id: "huevo_revuelto", label: "Revueltos" },
+      { id: "huevo_frito", label: "Fritos" },
+      { id: "huevo_divorciados", label: "Divorciados" }
+    ]
+  },
+  {
+    id: 3,
+    name: "Orden de Hotcakes",
+    description: "Tres hotcakes caseros con miel y mantequilla",
+    price: 95,
+    category: "Desayunos",
+    available: true,
+    options: [
+      { id: "mas_miel", label: "Más miel" },
+      { id: "sin_mantequilla", label: "Sin mantequilla" },
+      { id: "con_frutas", label: "Con frutas" }
     ]
   },
   {
     id: 4,
-    name: "Huevos Rancheros",
-    description: "Huevos con salsa roja, frijoles y tortillas",
+    name: "Molletes con Mantequilla",
+    description: "Pan tostado con queso y salsa",
+    price: 80,
+    category: "Desayunos",
+    available: true,
+    options: [
+      { id: "extra_queso", label: "Extra queso" },
+      { id: "jamón", label: "Con jamón" },
+      { id: "sin_salsa", label: "Sin salsa" }
+    ]
+  },
+  {
+    id: 5,
+    name: "Chilaquiles",
+    description: "Tortillas fritas con salsa verde, queso y crema",
+    price: 100,
+    category: "Desayunos",
+    available: true,
+    options: [
+      { id: "salsa_roja", label: "Salsa roja" },
+      { id: "con_huevo", label: "Con huevo" },
+      { id: "extra_crema", label: "Extra crema" }
+    ]
+  },
+  {
+    id: 6,
+    name: "Enfrioladas",
+    description: "Tortillas con salsa fría, queso y crema",
     price: 90,
     category: "Desayunos",
     available: true,
     options: [
-      { id: "salsa_verde", label: "Salsa verde en lugar de roja" },
-      { id: "sin_cebolla", label: "Sin cebolla" },
-      { id: "tortillas_extra", label: "Tortillas extra" }
+      { id: "con_pollo", label: "Con pollo" },
+      { id: "sin_crema", label: "Sin crema" },
+      { id: "extra_queso", label: "Extra queso" }
+    ]
+  },
+  {
+    id: 7,
+    name: "Crepas",
+    description: "Tres crepas rellenas de tu elección",
+    price: 110,
+    category: "Desayunos",
+    available: true,
+    options: [
+      { id: "relleno_dulce", label: "Relleno dulce" },
+      { id: "relleno_salado", label: "Relleno salado" },
+      { id: "con_chocolate", label: "Con chocolate" }
+    ]
+  },
+  {
+    id: 8,
+    name: "Sincronizada",
+    description: "Pan tostado con jamón, queso y huevo",
+    price: 105,
+    category: "Desayunos",
+    available: true,
+    options: [
+      { id: "extra_jamón", label: "Extra jamón" },
+      { id: "extra_queso", label: "Extra queso" },
+      { id: "sin_huevo", label: "Sin huevo" }
     ]
   },
 
   // Comida Rápida
   {
-    id: 5,
-    name: "Hamburguesa Premium",
-    description: "Carne de res molida, queso, lechuga, tomate y salsa especial",
+    id: 9,
+    name: "Hamburguesa con Papas",
+    description: "Hamburguesa premium con papas fritas",
     price: 140,
     category: "Comida Rápida",
     available: true,
     options: [
+      { id: "doble_carne", label: "Doble carne" },
       { id: "sin_cebolla", label: "Sin cebolla" },
-      { id: "sin_lechuga", label: "Sin lechuga" },
-      { id: "extra_queso", label: "Extra queso" },
-      { id: "sin_salsa", label: "Sin salsa" },
-      { id: "doble_carne", label: "Doble carne" }
+      { id: "extra_queso", label: "Extra queso" }
     ]
   },
   {
-    id: 6,
-    name: "Papas Fritas",
-    description: "Papas crujientes y doradas con sal marina",
-    price: 50,
+    id: 10,
+    name: "Hamburguesa Sencilla",
+    description: "Hamburguesa básica con lechuga, tomate y salsa",
+    price: 95,
     category: "Comida Rápida",
     available: true,
     options: [
-      { id: "sin_sal", label: "Sin sal" },
-      { id: "con_queso", label: "Con queso fundido" },
-      { id: "picante", label: "Con salsa picante" }
+      { id: "sin_salsa", label: "Sin salsa" },
+      { id: "extra_lechuga", label: "Extra lechuga" },
+      { id: "con_queso", label: "Con queso" }
     ]
   },
   {
-    id: 7,
-    name: "Alitas de Pollo",
-    description: "Alitas crujientes con salsa BBQ",
+    id: 11,
+    name: "Hot Dog",
+    description: "Hot dog clásico con salsas y vegetales",
+    price: 75,
+    category: "Comida Rápida",
+    available: true,
+    options: [
+      { id: "sin_mostaza", label: "Sin mostaza" },
+      { id: "extra_cebolla", label: "Extra cebolla" },
+      { id: "picante", label: "Picante" }
+    ]
+  },
+  {
+    id: 12,
+    name: "Papas a la Francesa",
+    description: "Papas fritas doradas y crujientes",
+    price: 60,
+    category: "Comida Rápida",
+    available: true,
+    options: [
+      { id: "con_queso", label: "Con queso" },
+      { id: "sin_sal", label: "Sin sal" },
+      { id: "extra_sal", label: "Extra sal" }
+    ]
+  },
+  {
+    id: 13,
+    name: "Burritos",
+    description: "Burritos rellenos de tu elección",
     price: 110,
     category: "Comida Rápida",
     available: true,
     options: [
-      { id: "sin_bbq", label: "Sin salsa BBQ" },
-      { id: "salsa_picante", label: "Salsa picante" },
-      { id: "salsa_ranch", label: "Salsa ranch" }
-    ]
-  },
-  {
-    id: 8,
-    name: "Nuggets de Pollo",
-    description: "Nuggets caseros, dorados y crujientes",
-    price: 80,
-    category: "Comida Rápida",
-    available: true,
-    options: [
-      { id: "salsa_barbecue", label: "Salsa barbecue" },
-      { id: "salsa_mostaza", label: "Salsa mostaza" },
-      { id: "sin_salsa", label: "Sin salsa" }
+      { id: "pollo", label: "De pollo" },
+      { id: "carne", label: "De carne" },
+      { id: "vegetariano", label: "Vegetariano" }
     ]
   },
 
   // Antojitos Mexicanos
   {
-    id: 9,
-    name: "Tacos al Pastor",
-    description: "Tres tacos con carne marinada, piña y cebolla",
+    id: 14,
+    name: "Taquitos de Adobada",
+    description: "Tres taquitos de carne adobada",
     price: 85,
     category: "Antojitos Mexicanos",
     available: true,
     options: [
       { id: "sin_cebolla", label: "Sin cebolla" },
-      { id: "sin_pina", label: "Sin piña" },
-      { id: "carne_doble", label: "Carne doble" },
-      { id: "salsa_extra", label: "Salsa extra" }
+      { id: "con_guacamole", label: "Con guacamole" },
+      { id: "extra_salsa", label: "Extra salsa" }
     ]
   },
   {
-    id: 10,
-    name: "Enchiladas Verdes",
-    description: "Enchiladas rellenas de queso y pollo, bañadas en salsa verde",
-    price: 125,
+    id: 15,
+    name: "Tacos Tuxpeños",
+    description: "Tacos tradicionales con carne guisada",
+    price: 90,
     category: "Antojitos Mexicanos",
     available: true,
     options: [
-      { id: "sin_crema", label: "Sin crema" },
-      { id: "extra_queso", label: "Extra queso" },
-      { id: "salsa_roja", label: "Salsa roja en lugar de verde" },
-      { id: "carne_extra", label: "Carne extra" }
+      { id: "sin_cebolla", label: "Sin cebolla" },
+      { id: "carne_doble", label: "Carne doble" },
+      { id: "picante", label: "Picante" }
     ]
   },
   {
-    id: 11,
-    name: "Quesadillas de Rajas",
-    description: "Quesadillas rellenas de rajas con queso oaxaca",
+    id: 16,
+    name: "Sopitos",
+    description: "Masa frita con carne, queso y lechuga",
     price: 95,
     category: "Antojitos Mexicanos",
     available: true,
     options: [
       { id: "extra_queso", label: "Extra queso" },
-      { id: "sin_rajas", label: "Solo queso" },
-      { id: "pollo_extra", label: "Con pollo extra" }
+      { id: "sin_lechuga", label: "Sin lechuga" },
+      { id: "con_guacamole", label: "Con guacamole" }
     ]
   },
   {
-    id: 12,
-    name: "Chilaquiles Verdes",
-    description: "Tortillas fritas con salsa verde, pollo y queso",
-    price: 105,
+    id: 17,
+    name: "Flautas de Pollo",
+    description: "Tres flautas de pollo doradas",
+    price: 100,
     category: "Antojitos Mexicanos",
     available: true,
     options: [
-      { id: "crema_extra", label: "Crema extra" },
-      { id: "queso_extra", label: "Queso extra" },
-      { id: "sin_cebolla", label: "Sin cebolla" },
-      { id: "huevo_extra", label: "Con huevo" }
+      { id: "con_crema", label: "Con crema" },
+      { id: "con_guacamole", label: "Con guacamole" },
+      { id: "extra_salsa", label: "Extra salsa" }
+    ]
+  },
+  {
+    id: 18,
+    name: "Enchiladas Suizas",
+    description: "Enchiladas rellenas de pollo con salsa verde",
+    price: 125,
+    category: "Antojitos Mexicanos",
+    available: true,
+    options: [
+      { id: "salsa_roja", label: "Salsa roja" },
+      { id: "sin_crema", label: "Sin crema" },
+      { id: "extra_queso", label: "Extra queso" }
     ]
   },
 
   // Platillos del Día
   {
-    id: 13,
-    name: "Caldo de Pollo",
-    description: "Caldo casero con verduras y pollo",
-    price: 70,
+    id: 19,
+    name: "Guiso del Día con Agua",
+    description: "Platillo del día con agua fresca",
+    price: 85,
     category: "Platillos del Día",
     available: true,
     options: [
-      { id: "sin_verduras", label: "Sin verduras" },
-      { id: "carne_extra", label: "Carne extra" },
-      { id: "limón_extra", label: "Con limón extra" }
+      { id: "sin_picante", label: "Sin picante" },
+      { id: "carne_extra", label: "Carne extra" }
     ]
   },
   {
-    id: 14,
-    name: "Arroz con Pollo",
-    description: "Arroz blanco con pollo desmenuzado y verduras",
-    price: 110,
+    id: 20,
+    name: "Guiso del Día sin Agua",
+    description: "Platillo del día sin agua fresca",
+    price: 75,
     category: "Platillos del Día",
     available: true,
     options: [
-      { id: "sin_verduras", label: "Sin verduras" },
-      { id: "arroz_integral", label: "Arroz integral" },
-      { id: "carne_doble", label: "Carne doble" }
-    ]
-  },
-  {
-    id: 15,
-    name: "Pechuga a la Plancha",
-    description: "Pechuga de pollo a la plancha con guarnición",
-    price: 135,
-    category: "Platillos del Día",
-    available: true,
-    options: [
-      { id: "sin_sal", label: "Sin sal" },
-      { id: "verduras_extra", label: "Verduras extra" },
-      { id: "salsa_aparte", label: "Salsa aparte" }
-    ]
-  },
-  {
-    id: 16,
-    name: "Camarones a la Garlic",
-    description: "Camarones frescos con salsa de ajo",
-    price: 160,
-    category: "Platillos del Día",
-    available: false,
-    options: [
-      { id: "menos_ajo", label: "Menos ajo" },
-      { id: "sin_mantequilla", label: "Sin mantequilla" },
-      { id: "salsa_extra", label: "Salsa extra" }
+      { id: "sin_picante", label: "Sin picante" },
+      { id: "carne_extra", label: "Carne extra" }
     ]
   },
 
   // Sandwiches
   {
-    id: 17,
-    name: "Sandwich de Jamón y Queso",
-    description: "Pan integral con jamón serrano, queso y tomate",
-    price: 75,
-    category: "Sandwiches",
-    available: true,
-    options: [
-      { id: "tostado", label: "Tostado" },
-      { id: "sin_mayonesa", label: "Sin mayonesa" },
-      { id: "extra_queso", label: "Extra queso" },
-      { id: "con_aguacate", label: "Con aguacate" }
-    ]
-  },
-  {
-    id: 18,
-    name: "Sandwich de Pollo",
-    description: "Pechuga de pollo desmenuzada, aguacate y mayonesa",
-    price: 85,
-    category: "Sandwiches",
-    available: true,
-    options: [
-      { id: "tostado", label: "Tostado" },
-      { id: "sin_mayonesa", label: "Sin mayonesa" },
-      { id: "sin_aguacate", label: "Sin aguacate" },
-      { id: "carne_extra", label: "Carne extra" }
-    ]
-  },
-  {
-    id: 19,
-    name: "Sandwich Club",
-    description: "Triple deck con jamón, pollo, queso, lechuga y tomate",
+    id: 21,
+    name: "Sandwich de Lomo",
+    description: "Pan integral con lomo de res y vegetales",
     price: 115,
     category: "Sandwiches",
     available: true,
     options: [
       { id: "tostado", label: "Tostado" },
       { id: "sin_mayonesa", label: "Sin mayonesa" },
-      { id: "sin_bacon", label: "Sin bacon" },
-      { id: "carne_extra", label: "Carne extra" }
+      { id: "con_aguacate", label: "Con aguacate" }
     ]
   },
   {
-    id: 20,
-    name: "Sandwich Vegano",
-    description: "Vegetales frescos, hummus y aguacate",
-    price: 80,
+    id: 22,
+    name: "Sandwich de Pollo",
+    description: "Pechuga de pollo desmenuzada con vegetales",
+    price: 95,
     category: "Sandwiches",
     available: true,
     options: [
       { id: "tostado", label: "Tostado" },
-      { id: "sin_hummus", label: "Sin hummus" },
-      { id: "verduras_extra", label: "Verduras extra" }
+      { id: "sin_mayonesa", label: "Sin mayonesa" },
+      { id: "carne_extra", label: "Carne extra" }
+    ]
+  },
+  {
+    id: 23,
+    name: "Sandwich de Panela",
+    description: "Queso de panela con vegetales frescos",
+    price: 85,
+    category: "Sandwiches",
+    available: true,
+    options: [
+      { id: "tostado", label: "Tostado" },
+      { id: "queso_extra", label: "Queso extra" },
+      { id: "con_aguacate", label: "Con aguacate" }
+    ]
+  },
+  {
+    id: 24,
+    name: "Sandwich de Jamón",
+    description: "Jamón serrano con queso y vegetales",
+    price: 90,
+    category: "Sandwiches",
+    available: true,
+    options: [
+      { id: "tostado", label: "Tostado" },
+      { id: "jamón_extra", label: "Jamón extra" },
+      { id: "con_aguacate", label: "Con aguacate" }
     ]
   },
 
   // Tortas
   {
-    id: 21,
-    name: "Torta de Milanesa",
-    description: "Pan blanco con milanesa de pollo, aguacate y cebolla",
-    price: 95,
+    id: 25,
+    name: "Torta de Lomo",
+    description: "Pan blanco con lomo de res y aguacate",
+    price: 125,
     category: "Tortas",
     available: true,
     options: [
-      { id: "sin_cebolla", label: "Sin cebolla" },
       { id: "sin_mayonesa", label: "Sin mayonesa" },
-      { id: "doble_milanesa", label: "Doble milanesa" },
-      { id: "con_queso", label: "Con queso" }
+      { id: "doble_lomo", label: "Doble lomo" },
+      { id: "sin_cebolla", label: "Sin cebolla" }
     ]
   },
   {
-    id: 22,
+    id: 26,
+    name: "Torta Hawaiiana",
+    description: "Carne, jamón, queso y piña",
+    price: 130,
+    category: "Tortas",
+    available: true,
+    options: [
+      { id: "sin_piña", label: "Sin piña" },
+      { id: "extra_queso", label: "Extra queso" },
+      { id: "picante", label: "Picante" }
+    ]
+  },
+  {
+    id: 27,
     name: "Torta Cubana",
-    description: "Pan bolillo con carne, queso, jamón y huevo",
-    price: 110,
+    description: "Carne, jamón, queso, huevo y aguacate",
+    price: 135,
     category: "Tortas",
     available: true,
     options: [
       { id: "sin_huevo", label: "Sin huevo" },
-      { id: "extra_queso", label: "Extra queso" },
-      { id: "sin_mayonesa", label: "Sin mayonesa" },
-      { id: "carne_doble", label: "Carne doble" }
+      { id: "extra_carne", label: "Extra carne" },
+      { id: "sin_mayonesa", label: "Sin mayonesa" }
     ]
   },
   {
-    id: 23,
-    name: "Torta de Pollo",
-    description: "Pollo desmenuzado, frijoles, queso y jalapeños",
-    price: 100,
-    category: "Tortas",
-    available: true,
-    options: [
-      { id: "sin_jalapenos", label: "Sin jalapeños" },
-      { id: "extra_queso", label: "Extra queso" },
-      { id: "carne_extra", label: "Carne extra" },
-      { id: "picante", label: "Más picante" }
-    ]
-  },
-  {
-    id: 24,
-    name: "Torta Yucateca",
-    description: "Carne de cerdo, salsa habanero y cebolla",
+    id: 28,
+    name: "Torta de Panela",
+    description: "Queso de panela con vegetales frescos",
     price: 105,
     category: "Tortas",
     available: true,
     options: [
-      { id: "menos_picante", label: "Menos picante" },
+      { id: "queso_extra", label: "Queso extra" },
+      { id: "con_jamón", label: "Con jamón" },
+      { id: "sin_mayonesa", label: "Sin mayonesa" }
+    ]
+  },
+  {
+    id: 29,
+    name: "Torta de Jamón",
+    description: "Jamón serrano con queso y aguacate",
+    price: 110,
+    category: "Tortas",
+    available: true,
+    options: [
+      { id: "jamón_extra", label: "Jamón extra" },
+      { id: "queso_extra", label: "Queso extra" },
+      { id: "sin_aguacate", label: "Sin aguacate" }
+    ]
+  },
+  {
+    id: 30,
+    name: "Medio Pachuco Sencillo",
+    description: "Media bolillo con carne y vegetales",
+    price: 85,
+    category: "Tortas",
+    available: true,
+    options: [
+      { id: "carne_doble", label: "Carne doble" },
       { id: "sin_cebolla", label: "Sin cebolla" },
-      { id: "carne_extra", label: "Carne extra" }
+      { id: "picante", label: "Picante" }
+    ]
+  },
+  {
+    id: 31,
+    name: "Medio Pachuco con Carne",
+    description: "Media bolillo con carne extra y aguacate",
+    price: 105,
+    category: "Tortas",
+    available: true,
+    options: [
+      { id: "carne_doble", label: "Carne doble" },
+      { id: "sin_aguacate", label: "Sin aguacate" },
+      { id: "con_queso", label: "Con queso" }
     ]
   },
 
   // Opciones Ligeras
   {
-    id: 25,
-    name: "Ensalada César",
-    description: "Lechuga romana, crutones, queso parmesano y aderezo",
-    price: 85,
+    id: 32,
+    name: "Ensalada de Pollo",
+    description: "Lechuga, pollo, tomate y aderezo",
+    price: 105,
     category: "Opciones Ligeras",
     available: true,
     options: [
-      { id: "sin_crutones", label: "Sin crutones" },
       { id: "aderezo_aparte", label: "Aderezo aparte" },
-      { id: "queso_extra", label: "Queso extra" },
-      { id: "pollo_extra", label: "Con pollo extra" }
-    ]
-  },
-  {
-    id: 26,
-    name: "Ensalada de Frutas",
-    description: "Mezcla de frutas frescas de temporada",
-    price: 65,
-    category: "Opciones Ligeras",
-    available: true,
-    options: [
-      { id: "sin_limon", label: "Sin limón" },
-      { id: "miel_extra", label: "Miel extra" },
-      { id: "menta", label: "Con menta" }
-    ]
-  },
-  {
-    id: 27,
-    name: "Wrap de Verduras",
-    description: "Tortilla integral rellena de vegetales y hummus",
-    price: 75,
-    category: "Opciones Ligeras",
-    available: true,
-    options: [
-      { id: "sin_hummus", label: "Sin hummus" },
-      { id: "verduras_extra", label: "Verduras extra" },
+      { id: "pollo_extra", label: "Pollo extra" },
       { id: "sin_queso", label: "Sin queso" }
     ]
   },
   {
-    id: 28,
-    name: "Ceviche",
-    description: "Pescado marinado en limón con cebolla y cilantro",
-    price: 125,
+    id: 33,
+    name: "Fruta",
+    description: "Combinación de frutas frescas de temporada",
+    price: 65,
     category: "Opciones Ligeras",
     available: true,
     options: [
-      { id: "sin_cebolla", label: "Sin cebolla" },
-      { id: "sin_cilantro", label: "Sin cilantro" },
-      { id: "picante_extra", label: "Picante extra" },
-      { id: "camaron_extra", label: "Camarón extra" }
+      { id: "con_limon", label: "Con limón" },
+      { id: "con_chile", label: "Con chile" },
+      { id: "sin_limon", label: "Sin limón" }
+    ]
+  },
+  {
+    id: 34,
+    name: "Gelatina",
+    description: "Gelatina de sabor a elegir",
+    price: 35,
+    category: "Opciones Ligeras",
+    available: true,
+    options: [
+      { id: "sabor_fresa", label: "Fresa" },
+      { id: "sabor_lima", label: "Lima" },
+      { id: "sabor_piña", label: "Piña" }
     ]
   },
 
   // Bebidas
   {
-    id: 29,
-    name: "Café Americano",
-    description: "Café molido fresco en agua caliente",
-    price: 35,
+    id: 35,
+    name: "Agua de Sabor",
+    description: "Agua fresca de sabor a elegir",
+    price: 30,
     category: "Bebidas",
     available: true,
     options: [
-      { id: "con_leche", label: "Con leche" },
-      { id: "sin_azucar", label: "Sin azúcar" },
-      { id: "mas_azucar", label: "Más azúcar" },
-      { id: "con_hielo", label: "Con hielo" }
+      { id: "jamaica", label: "Jamaica" },
+      { id: "tamarindo", label: "Tamarindo" },
+      { id: "horchata", label: "Horchata" }
     ]
   },
   {
-    id: 30,
-    name: "Cappuccino",
-    description: "Espresso con leche vaporizada y espuma",
-    price: 55,
-    category: "Bebidas",
-    available: true,
-    options: [
-      { id: "sin_azucar", label: "Sin azúcar" },
-      { id: "mas_espuma", label: "Más espuma" },
-      { id: "sin_espuma", label: "Sin espuma" },
-      { id: "con_hielo", label: "Con hielo" }
-    ]
-  },
-  {
-    id: 31,
-    name: "Jugo Natural",
-    description: "Jugo fresco de naranja o zanahoria",
+    id: 36,
+    name: "Jugo Natural de Naranja",
+    description: "Jugo fresco de naranja recién exprimido",
     price: 45,
     category: "Bebidas",
     available: true,
     options: [
       { id: "con_hielo", label: "Con hielo" },
       { id: "sin_pulpa", label: "Sin pulpa" },
-      { id: "naranja", label: "Naranja" },
-      { id: "zanahoria", label: "Zanahoria" }
+      { id: "con_limon", label: "Con limón" }
     ]
   },
   {
-    id: 32,
-    name: "Smoothie de Fresa",
-    description: "Fresa, yogur natural y miel",
+    id: 37,
+    name: "Jugo Verde",
+    description: "Jugo detox con espinaca, nopal y piña",
+    price: 55,
+    category: "Bebidas",
+    available: true,
+    options: [
+      { id: "con_hielo", label: "Con hielo" },
+      { id: "sin_limon", label: "Sin limón" },
+      { id: "extra_jengibre", label: "Extra jengibre" }
+    ]
+  },
+  {
+    id: 38,
+    name: "Licuado de Frutas",
+    description: "Licuado hecho con frutas frescas",
     price: 65,
     category: "Bebidas",
     available: true,
     options: [
-      { id: "sin_miel", label: "Sin miel" },
-      { id: "mas_hielo", label: "Más hielo" },
-      { id: "leche_extra", label: "Leche extra" },
-      { id: "proteina", label: "Con proteína" }
+      { id: "con_leche", label: "Con leche" },
+      { id: "sin_azucar", label: "Sin azúcar" },
+      { id: "con_hielo", label: "Con hielo" }
     ]
   },
   {
-    id: 33,
-    name: "Refresco",
-    description: "Refresco frio a elegir",
+    id: 39,
+    name: "Chocomilk",
+    description: "Chocolate con leche caliente o fría",
+    price: 55,
+    category: "Bebidas",
+    available: true,
+    options: [
+      { id: "caliente", label: "Caliente" },
+      { id: "frio", label: "Frío" },
+      { id: "marshmallows", label: "Con marshmallows" }
+    ]
+  },
+  {
+    id: 40,
+    name: "Vaso con Leche",
+    description: "Leche fresca en vaso",
     price: 40,
     category: "Bebidas",
     available: true,
     options: [
-      { id: "sin_hielo", label: "Sin hielo" },
-      { id: "mas_hielo", label: "Más hielo" },
-      { id: "con_limon", label: "Con limón" }
+      { id: "leche_entera", label: "Leche entera" },
+      { id: "leche_descremada", label: "Leche descremada" },
+      { id: "caliente", label: "Caliente" }
+    ]
+  },
+  {
+    id: 41,
+    name: "Café",
+    description: "Café negro recién preparado",
+    price: 35,
+    category: "Bebidas",
+    available: true,
+    options: [
+      { id: "con_leche", label: "Con leche" },
+      { id: "sin_azucar", label: "Sin azúcar" },
+      { id: "espresso", label: "Espresso" }
+    ]
+  },
+  {
+    id: 42,
+    name: "Té",
+    description: "Té caliente a elegir",
+    price: 40,
+    category: "Bebidas",
+    available: true,
+    options: [
+      { id: "té_negro", label: "Té negro" },
+      { id: "té_verde", label: "Té verde" },
+      { id: "té_manzanilla", label: "Té manzanilla" }
     ]
   }
-]
+];
