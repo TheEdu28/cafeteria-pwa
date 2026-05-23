@@ -35,6 +35,7 @@ const Menu = () => {
     }
   }
 
+
   return (
     <div className="menu-container">
       <header className="menu-header">
@@ -92,6 +93,12 @@ const Menu = () => {
               className="product-card-link"
               aria-label={`Ver detalles de ${product.name}`}
             >
+              <img
+                src={product.image}
+                alt={product.name}
+                className="product-img"
+                />
+                
               <div className="product-header">
                 <h3 className="product-name">{product.name}</h3>
                 {!product.available && (
