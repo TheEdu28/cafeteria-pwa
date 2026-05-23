@@ -106,26 +106,16 @@ const Cart = () => {
 
           <div className="summary-items">
             <div className="summary-row">
-              <span>Subtotal ({cartItems.length} {cartItems.length === 1 ? 'artículo' : 'artículos'}):</span>
+              <span>Total ({cartItems.length} {cartItems.length === 1 ? 'artículo' : 'artículos'}):</span>
               <span>${total.toFixed(2)}</span>
-            </div>
-
-            <div className="summary-row">
-              <span>Envío:</span>
-              <span className="free-shipping">Gratis</span>
-            </div>
-
-            <div className="summary-row">
-              <span>Impuestos (10%):</span>
-              <span>${(total * 0.1).toFixed(2)}</span>
             </div>
           </div>
 
           <div className="summary-divider"></div>
 
           <div className="summary-total">
-            <span>Total:</span>
-            <span className="total-amount">${(total * 1.1).toFixed(2)}</span>
+            <span>A Pagar:</span>
+            <span className="total-amount">${total.toFixed(2)}</span>
           </div>
 
           <div className="cart-actions">

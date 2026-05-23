@@ -6,7 +6,7 @@ import './Confirmation.css'
 
 const Confirmation = () => {
   const navigate = useNavigate()
-  const { cartItems, selectedSchedule, total, completeOrder } = useContext(CartContext)
+  const { cartItems, selectedSchedule, total, completeOrder, editingOrderId, updateOrder } = useContext(CartContext)
   const [confirmed, setConfirmed] = useState(false)
   const [confirmError, setConfirmError] = useState(null)
   const [order, setOrder] = useState(null)
@@ -20,9 +20,20 @@ const Confirmation = () => {
 
   const handleConfirmOrder = () => {
     try {
-      const newOrder = completeOrder({
-        orderNumber: `ORD-${Date.now().toString().slice(-8)}`
-      })
+      let newOrder
+      
+      if (editingOrderId) {
+        // Modo edición: actualizar el pedido existente
+        newOrder = updateOrder(editingOrderId, {
+          orderNumber: `ORD-${Date.now().toString().slice(-8)}`
+        })
+      } else {
+        // Modo nuevo pedido: crear uno nuevo
+        newOrder = completeOrder({
+          orderNumber: `ORD-${Date.now().toString().slice(-8)}`
+        })
+      }
+      
       setOrder(newOrder)
       setConfirmed(true)
     } catch (error) {
@@ -157,17 +168,9 @@ const Confirmation = () => {
 
               {/* Totales */}
               <div className="summary-box">
-                <div className="summary-row">
-                  <span>Subtotal:</span>
-                  <span>${total.toFixed(2)}</span>
-                </div>
-                <div className="summary-row">
-                  <span>Impuestos (10%):</span>
-                  <span>${taxAmount.toFixed(2)}</span>
-                </div>
                 <div className="summary-row divider">
-                  <span>Total:</span>
-                  <span className="total-price">${finalTotal.toFixed(2)}</span>
+                  <span>Total a Pagar:</span>
+                  <span className="total-price">${total.toFixed(2)}</span>
                 </div>
               </div>
 

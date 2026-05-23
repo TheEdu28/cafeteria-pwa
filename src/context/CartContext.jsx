@@ -5,6 +5,7 @@ export const CartContext = createContext()
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([])
   const [selectedSchedule, setSelectedSchedule] = useState(null)
+  const [editingOrderId, setEditingOrderId] = useState(null)
   const [completedOrders, setCompletedOrders] = useState(() => {
     const saved = localStorage.getItem('completedOrders')
     return saved ? JSON.parse(saved) : []
@@ -105,6 +106,60 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem('completedOrders', JSON.stringify(updatedOrders))
   }, [completedOrders])
 
+  // Reordenar - Agregar items de un pedido anterior al carrito
+  const reorderFromPastOrder = useCallback((orderId) => {
+    const pastOrder = completedOrders.find(order => order.id === orderId)
+    if (!pastOrder) return false
+    
+    // Limpiar carrito antes de agregar items del pedido anterior
+    setCartItems([])
+    
+    // Marcar que estamos editando este pedido
+    setEditingOrderId(orderId)
+    
+    // Agregar cada item del pedido anterior al carrito actual
+    pastOrder.items.forEach(item => {
+      const { customizations = [] } = item
+      addToCart(item, item.quantity, customizations)
+    })
+    return true
+  }, [completedOrders, addToCart])
+
+  // Marcar pedido como recogido
+  const completeOrderPickup = useCallback((orderId) => {
+    const updatedOrders = completedOrders.map(order =>
+      order.id === orderId ? { ...order, status: 'completed' } : order
+    )
+    setCompletedOrders(updatedOrders)
+    localStorage.setItem('completedOrders', JSON.stringify(updatedOrders))
+  }, [completedOrders])
+
+  // Actualizar un pedido existente (cuando se modifica)
+  const updateOrder = useCallback((orderId, orderData) => {
+    const updatedOrders = completedOrders.map(order => {
+      if (order.id === orderId) {
+        return {
+          ...order,
+          items: cartItems,
+          schedule: selectedSchedule,
+          total,
+          timestamp: new Date().toISOString(),
+          ...orderData
+        }
+      }
+      return order
+    })
+    setCompletedOrders(updatedOrders)
+    localStorage.setItem('completedOrders', JSON.stringify(updatedOrders))
+    
+    // Limpiar carrito y horario después de actualizar
+    setCartItems([])
+    setSelectedSchedule(null)
+    setEditingOrderId(null)
+    
+    return updatedOrders.find(o => o.id === orderId)
+  }, [cartItems, selectedSchedule, total, completedOrders])
+
   const value = {
     cartItems,
     addToCart,
@@ -115,9 +170,13 @@ export const CartProvider = ({ children }) => {
     itemCount,
     selectedSchedule,
     setSchedule,
+    editingOrderId,
     completedOrders,
     completeOrder,
-    cancelOrder
+    cancelOrder,
+    reorderFromPastOrder,
+    completeOrderPickup,
+    updateOrder
   }
 
   return (

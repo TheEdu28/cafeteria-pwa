@@ -11,27 +11,47 @@ const Schedule = () => {
   const [selectedTime, setSelectedTime] = useState(null)
   const [error, setError] = useState(null)
 
-  // Horarios disponibles
+  // Horarios disponibles (06:30 AM a 06:00 PM)
   const timeSlots = [
+    { id: 'slot_06_30', label: '06:30 AM', time: '06:30', capacity: 15, current: 5 },
+    { id: 'slot_07_00', label: '07:00 AM', time: '07:00', capacity: 15, current: 9 },
+    { id: 'slot_07_30', label: '07:30 AM', time: '07:30', capacity: 15, current: 11 },
+    { id: 'slot_08_00', label: '08:00 AM', time: '08:00', capacity: 15, current: 14 },
+    { id: 'slot_08_30', label: '08:30 AM', time: '08:30', capacity: 15, current: 7 },
+    { id: 'slot_09_00', label: '09:00 AM', time: '09:00', capacity: 15, current: 10 },
+    { id: 'slot_09_30', label: '09:30 AM', time: '09:30', capacity: 15, current: 13 },
+    { id: 'slot_10_00', label: '10:00 AM', time: '10:00', capacity: 15, current: 6 },
+    { id: 'slot_10_30', label: '10:30 AM', time: '10:30', capacity: 15, current: 12 },
     { id: 'slot_11_00', label: '11:00 AM', time: '11:00', capacity: 15, current: 8 },
     { id: 'slot_11_30', label: '11:30 AM', time: '11:30', capacity: 15, current: 12 },
     { id: 'slot_12_00', label: '12:00 PM', time: '12:00', capacity: 15, current: 15 },
     { id: 'slot_12_30', label: '12:30 PM', time: '12:30', capacity: 15, current: 6 },
     { id: 'slot_01_00', label: '01:00 PM', time: '13:00', capacity: 15, current: 10 },
     { id: 'slot_01_30', label: '01:30 PM', time: '13:30', capacity: 15, current: 14 },
+    { id: 'slot_02_00', label: '02:00 PM', time: '14:00', capacity: 15, current: 8 },
+    { id: 'slot_02_30', label: '02:30 PM', time: '14:30', capacity: 15, current: 11 },
+    { id: 'slot_03_00', label: '03:00 PM', time: '15:00', capacity: 15, current: 9 },
+    { id: 'slot_03_30', label: '03:30 PM', time: '15:30', capacity: 15, current: 15 },
+    { id: 'slot_04_00', label: '04:00 PM', time: '16:00', capacity: 15, current: 4 },
+    { id: 'slot_04_30', label: '04:30 PM', time: '16:30', capacity: 15, current: 7 },
     { id: 'slot_05_00', label: '05:00 PM', time: '17:00', capacity: 15, current: 3 },
     { id: 'slot_05_30', label: '05:30 PM', time: '17:30', capacity: 15, current: 9 },
     { id: 'slot_06_00', label: '06:00 PM', time: '18:00', capacity: 15, current: 15 },
   ]
 
-  // Generar próximos 7 días
+  // Generar próximos días (solo lunes a viernes - jornada escolar)
   const generateDates = () => {
     const dates = []
     const today = new Date()
-    for (let i = 0; i < 7; i++) {
-      const date = new Date(today)
-      date.setDate(date.getDate() + i)
-      dates.push(date)
+    let current = new Date(today)
+    
+    while (dates.length < 5) {
+      const dayOfWeek = current.getDay()
+      // 1 = lunes, 2 = martes, 3 = miércoles, 4 = jueves, 5 = viernes
+      if (dayOfWeek >= 1 && dayOfWeek <= 5) {
+        dates.push(new Date(current))
+      }
+      current.setDate(current.getDate() + 1)
     }
     return dates
   }
@@ -39,15 +59,33 @@ const Schedule = () => {
   const dates = generateDates()
 
   // Obtener estado del horario
+  const isTimeSlotInPast = (date, timeValue) => {
+    if (!date || !timeValue) return false
+    
+    const now = new Date()
+    const selectedDateTime = new Date(date)
+    const [hours, minutes] = timeValue.split(':')
+    selectedDateTime.setHours(parseInt(hours), parseInt(minutes), 0, 0)
+    
+    // Si la fecha es hoy, verificar si la hora ya pasó
+    if (selectedDateTime.toDateString() === now.toDateString()) {
+      return selectedDateTime <= now
+    }
+    
+    return false
+  }
+
   const getSlotStatus = (slot) => {
     const available = slot.current < slot.capacity
     const saturated = slot.current >= slot.capacity - 2
+    const isPast = selectedDate ? isTimeSlotInPast(selectedDate, slot.time) : false
     
     return {
-      available,
+      available: available && !isPast,
       saturated,
       filled: Math.round((slot.current / slot.capacity) * 100),
-      remaining: slot.capacity - slot.current
+      remaining: slot.capacity - slot.current,
+      isPast
     }
   }
 
@@ -142,7 +180,8 @@ const Schedule = () => {
             </div>
           </div>
 
-          {/* Selección de hora */}
+          {/* Selección de hora - Solo mostrar si hay fecha seleccionada */}
+          {selectedDate ? (
           <div className="time-selection">
             <h2 className="section-title">Selecciona un horario</h2>
             <div className="times-list">
@@ -160,12 +199,14 @@ const Schedule = () => {
                     }}
                     disabled={!status.available}
                     aria-selected={selectedTime === slot.id}
-                    aria-label={`${slot.label} - ${status.available ? `${status.remaining} lugares disponibles` : 'Horario lleno'}`}
+                    aria-label={`${slot.label} - ${status.isPast ? 'Horario pasado' : status.available ? `${status.remaining} lugares disponibles` : 'Horario lleno'}`}
                   >
                     <div className="time-header">
                       <span className="time-label">{slot.label}</span>
                       <span className={`status-icon ${status.available ? '' : 'unavailable'}`}>
-                        {status.available ? (
+                        {status.isPast ? (
+                          <XCircleIcon size={20} />
+                        ) : status.available ? (
                           <CheckCircle2Icon size={20} />
                         ) : (
                           <XCircleIcon size={20} />
@@ -212,6 +253,11 @@ const Schedule = () => {
               </div>
             )}
           </div>
+          ) : (
+            <div className="time-selection-placeholder">
+              <p className="placeholder-text">👈 Selecciona una fecha para ver los horarios disponibles</p>
+            </div>
+          )}
         </div>
 
         {/* Resumen */}
