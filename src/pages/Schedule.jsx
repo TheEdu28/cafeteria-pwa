@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { CartContext } from '../context/CartContext'
 import { CheckCircle2Icon, XCircleIcon, AlertCircleIcon, ChevronLeftIcon, ChevronRightIcon } from '../components/Icons'
@@ -10,6 +10,7 @@ const Schedule = () => {
   const [selectedDate, setSelectedDate] = useState(null)
   const [selectedTime, setSelectedTime] = useState(null)
   const [error, setError] = useState(null)
+  const [showTimeList, setShowTimeList] = useState(true)
 
   // Horarios disponibles (06:30 AM a 06:00 PM)
   const timeSlots = [
@@ -57,6 +58,12 @@ const Schedule = () => {
   }
 
   const dates = generateDates()
+
+  useEffect(() => {
+    if (!selectedDate) return
+    setSelectedTime(null)
+    setShowTimeList(true)
+  }, [selectedDate])
 
   // Obtener estado del horario
   const isTimeSlotInPast = (date, timeValue) => {
@@ -184,67 +191,86 @@ const Schedule = () => {
           {selectedDate ? (
           <div className="time-selection">
             <h2 className="section-title">Selecciona un horario</h2>
-            <div className="times-list">
-              {timeSlots.map(slot => {
-                const status = getSlotStatus(slot)
-                return (
-                  <button
-                    key={slot.id}
-                    className={`time-slot ${selectedTime === slot.id ? 'active' : ''} ${!status.available ? 'unavailable' : ''} ${status.saturated ? 'saturated' : ''}`}
-                    onClick={() => {
-                      if (status.available) {
-                        setSelectedTime(slot.id)
-                        setError(null)
-                      }
-                    }}
-                    disabled={!status.available}
-                    aria-selected={selectedTime === slot.id}
-                    aria-label={`${slot.label} - ${status.isPast ? 'Horario pasado' : status.available ? `${status.remaining} lugares disponibles` : 'Horario lleno'}`}
-                  >
-                    <div className="time-header">
-                      <span className="time-label">{slot.label}</span>
-                      <span className={`status-icon ${status.available ? '' : 'unavailable'}`}>
-                        {status.isPast ? (
-                          <XCircleIcon size={20} />
-                        ) : status.available ? (
-                          <CheckCircle2Icon size={20} />
-                        ) : (
-                          <XCircleIcon size={20} />
-                        )}
-                      </span>
-                    </div>
-
-                    <div className="time-capacity">
-                      <div className="capacity-bar">
-                        <div 
-                          className="capacity-fill"
-                          style={{ width: `${status.filled}%` }}
-                          role="progressbar"
-                          aria-valuenow={status.filled}
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                          aria-label={`${status.filled}% lleno`}
-                        ></div>
+            {selectedTime && !showTimeList ? (
+              <div className="time-summary">
+                <div>
+                  <p className="time-summary-label">Horario seleccionado</p>
+                  <p className="time-summary-value">
+                    {timeSlots.find(s => s.id === selectedTime)?.label}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  className="time-change-btn"
+                  onClick={() => setShowTimeList(true)}
+                >
+                  Cambiar
+                </button>
+              </div>
+            ) : (
+              <div className="times-list">
+                {timeSlots.map(slot => {
+                  const status = getSlotStatus(slot)
+                  return (
+                    <button
+                      key={slot.id}
+                      className={`time-slot ${selectedTime === slot.id ? 'active' : ''} ${!status.available ? 'unavailable' : ''} ${status.saturated ? 'saturated' : ''}`}
+                      onClick={() => {
+                        if (status.available) {
+                          setSelectedTime(slot.id)
+                          setShowTimeList(false)
+                          setError(null)
+                        }
+                      }}
+                      disabled={!status.available}
+                      aria-selected={selectedTime === slot.id}
+                      aria-label={`${slot.label} - ${status.isPast ? 'Horario pasado' : status.available ? `${status.remaining} lugares disponibles` : 'Horario lleno'}`}
+                    >
+                      <div className="time-header">
+                        <span className="time-label">{slot.label}</span>
+                        <span className={`status-icon ${status.available ? '' : 'unavailable'}`}>
+                          {status.isPast ? (
+                            <XCircleIcon size={20} />
+                          ) : status.available ? (
+                            <CheckCircle2Icon size={20} />
+                          ) : (
+                            <XCircleIcon size={20} />
+                          )}
+                        </span>
                       </div>
-                      <span className="capacity-text">
-                        {status.available ? (
-                          <>
-                            <span className="remaining">{status.remaining}</span>
-                            <span className="total">/{slot.capacity}</span>
-                          </>
-                        ) : (
-                          <span className="full">Lleno</span>
-                        )}
-                      </span>
-                    </div>
 
-                    {status.saturated && status.available && (
-                      <span className="saturated-badge">Casi lleno</span>
-                    )}
-                  </button>
-                )
-              })}
-            </div>
+                      <div className="time-capacity">
+                        <div className="capacity-bar">
+                          <div 
+                            className="capacity-fill"
+                            style={{ width: `${status.filled}%` }}
+                            role="progressbar"
+                            aria-valuenow={status.filled}
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                            aria-label={`${status.filled}% lleno`}
+                          ></div>
+                        </div>
+                        <span className="capacity-text">
+                          {status.available ? (
+                            <>
+                              <span className="remaining">{status.remaining}</span>
+                              <span className="total">/{slot.capacity}</span>
+                            </>
+                          ) : (
+                            <span className="full">Lleno</span>
+                          )}
+                        </span>
+                      </div>
+
+                      {status.saturated && status.available && (
+                        <span className="saturated-badge">Casi lleno</span>
+                      )}
+                    </button>
+                  )
+                })}
+              </div>
+            )}
 
             {error && (
               <div className="error-message" role="alert" aria-live="polite">

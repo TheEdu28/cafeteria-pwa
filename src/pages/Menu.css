@@ -95,6 +95,11 @@
   font-weight: 500;
 }
 
+.menu-gamification {
+  margin: 0 auto 2.5rem;
+  max-width: 1100px;
+}
+
 /* Sección de categorías */
 .categories-section {
   margin-bottom: 2.5rem;

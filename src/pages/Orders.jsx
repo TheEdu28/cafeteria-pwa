@@ -2,6 +2,7 @@ import { useState, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { CartContext } from '../context/CartContext'
 import { ChevronDownIcon, CheckCircle2Icon, ClockIcon, XCircleIcon } from '../components/Icons'
+import GamificationPanel from '../components/GamificationPanel'
 import './Orders.css'
 
 const Orders = () => {
@@ -104,6 +105,10 @@ const Orders = () => {
           <h1>Mis Pedidos</h1>
           <p>Historial y seguimiento de tus pedidos</p>
         </header>
+
+        <section className="orders-gamification">
+          <GamificationPanel variant="compact" />
+        </section>
         
         <section className="orders-content">
           <div className="empty-state">
@@ -125,6 +130,10 @@ const Orders = () => {
         <h1>Mis Pedidos</h1>
         <p>Historial y seguimiento de tus pedidos</p>
       </header>
+
+      <section className="orders-gamification">
+        <GamificationPanel variant="compact" />
+      </section>
 
       <section className="orders-content">
         {/* Notificación */}
