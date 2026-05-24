@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import GamificationPanel from '../components/GamificationPanel'
 import './Home.css'
 
 const Home = () => {
@@ -8,6 +9,10 @@ const Home = () => {
         <h1>Bienvenido a Cafetería</h1>
         <p className="home-subtitle">Explora nuestro menú y realiza tu pedido</p>
       </header>
+
+      <section className="home-gamification">
+        <GamificationPanel />
+      </section>
 
       <section className="home-content">
         <div className="home-card">

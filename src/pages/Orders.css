@@ -12,6 +12,10 @@
   text-align: center;
 }
 
+.orders-gamification {
+  margin-bottom: 2rem;
+}
+
 .orders-header h1 {
   font-size: 2rem;
   font-weight: 700;

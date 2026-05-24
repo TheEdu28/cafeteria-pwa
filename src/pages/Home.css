@@ -11,6 +11,10 @@
   margin-bottom: 3rem;
 }
 
+.home-gamification {
+  margin-bottom: 2.5rem;
+}
+
 .home-header h1 {
   margin-bottom: 1rem;
   color: var(--text-primary);

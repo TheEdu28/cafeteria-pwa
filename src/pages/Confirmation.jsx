@@ -1,15 +1,41 @@
-import { useState, useContext, useEffect } from 'react'
+import { useState, useContext, useEffect, useMemo } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { CartContext } from '../context/CartContext'
 import { CheckCircle2Icon, AlertCircleIcon } from '../components/Icons'
+import { products } from '../data/menu'
 import './Confirmation.css'
 
 const Confirmation = () => {
   const navigate = useNavigate()
-  const { cartItems, selectedSchedule, total, completeOrder, editingOrderId, updateOrder } = useContext(CartContext)
+  const {
+    cartItems,
+    selectedSchedule,
+    total,
+    completeOrder,
+    editingOrderId,
+    updateOrder,
+    calcPoints,
+    cafePoints,
+    nextRewardThreshold,
+    rewardSelection,
+    rewardEligible,
+    setRewardUse,
+    selectRewardDrink,
+    clearRewardSelection
+  } = useContext(CartContext)
   const [confirmed, setConfirmed] = useState(false)
   const [confirmError, setConfirmError] = useState(null)
   const [order, setOrder] = useState(null)
+  const [showRewardGrid, setShowRewardGrid] = useState(true)
+  const pointsPreview = calcPoints(total)
+  const rewardOptions = useMemo(() => {
+    const available = products.filter(product => product.available)
+    const beverages = available.filter(product => product.category === 'Bebidas')
+    const cheapFood = available.filter(product => product.category !== 'Bebidas' && product.price < 80)
+    return { beverages, cheapFood }
+  }, [])
+  const rewardRemaining = Math.max(nextRewardThreshold - cafePoints, 0)
+  const rewardItem = cartItems.find(item => item.isReward)
 
   // Redirigir si no hay carrito o horario seleccionado
   useEffect(() => {
@@ -18,8 +44,28 @@ const Confirmation = () => {
     }
   }, [cartItems, selectedSchedule, navigate])
 
+  useEffect(() => {
+    if (!rewardEligible && rewardSelection.useReward) {
+      clearRewardSelection()
+    }
+  }, [rewardEligible, rewardSelection.useReward, clearRewardSelection])
+
+  useEffect(() => {
+    if (!rewardSelection.useReward) {
+      setShowRewardGrid(false)
+      return
+    }
+    if (!rewardSelection.drinkId) {
+      setShowRewardGrid(true)
+    }
+  }, [rewardSelection.useReward, rewardSelection.drinkId])
+
   const handleConfirmOrder = () => {
     try {
+      if (rewardSelection.useReward && !rewardSelection.drinkId) {
+        setConfirmError('Selecciona tu producto gratis.')
+        return
+      }
       let newOrder
       
       if (editingOrderId) {
@@ -68,6 +114,18 @@ const Confirmation = () => {
               <h3>Total a Pagar</h3>
               <p className="summary-value price">${order.total.toFixed(2)}</p>
             </div>
+
+            <div className="summary-section">
+              <h3>CafePuntos Ganados</h3>
+              <p className="summary-value">+{order.earnedPoints} puntos</p>
+            </div>
+
+            {order.rewardUsed && (
+              <div className="summary-section">
+                <h3>Producto gratis canjeado</h3>
+                <p className="summary-value">{order.rewardDrinkName}</p>
+              </div>
+            )}
 
             <div className="summary-section">
               <h3>Número de Artículos</h3>
@@ -172,6 +230,155 @@ const Confirmation = () => {
                   <span>Total a Pagar:</span>
                   <span className="total-price">${total.toFixed(2)}</span>
                 </div>
+                <div className="summary-row">
+                  <span>CafePuntos que ganaras en este pedido:</span>
+                  <span className="total-price">+{pointsPreview}</span>
+                </div>
+              </div>
+
+              <div className="summary-box reward-box">
+                <h3>Canjear Producto Gratis</h3>
+                {rewardEligible ? (
+                  <>
+                    <div className="reward-question">
+                      <span>Quieres cobrar tu producto gratis?</span>
+                      <div className="reward-options">
+                        <label className="reward-option">
+                          <input
+                            type="radio"
+                            name="reward-confirmation"
+                            checked={rewardSelection.useReward}
+                            onChange={() => {
+                              setConfirmError(null)
+                              setRewardUse(true)
+                              setShowRewardGrid(true)
+                            }}
+                          />
+                          Si
+                        </label>
+                        <label className="reward-option">
+                          <input
+                            type="radio"
+                            name="reward-confirmation"
+                            checked={!rewardSelection.useReward}
+                            onChange={() => {
+                              setConfirmError(null)
+                              setRewardUse(false)
+                              setShowRewardGrid(false)
+                            }}
+                          />
+                          Mas tarde
+                        </label>
+                      </div>
+                    </div>
+
+                    {rewardSelection.useReward && showRewardGrid && (
+                      <div className="reward-select">
+                        <p className="reward-select-title">Elige tu producto gratis</p>
+                        <div className="reward-group">
+                          <p className="reward-group-title">Bebidas</p>
+                          <div className="reward-grid">
+                            {rewardOptions.beverages.map(product => (
+                              <button
+                                key={product.id}
+                                type="button"
+                                className={`reward-card ${rewardSelection.drinkId === product.id ? 'selected' : ''}`}
+                                onClick={() => {
+                                  setConfirmError(null)
+                                  selectRewardDrink(product)
+                                  setShowRewardGrid(false)
+                                }}
+                                aria-pressed={rewardSelection.drinkId === product.id}
+                              >
+                                <img
+                                  src={product.image}
+                                  alt={product.name}
+                                  className="reward-card-image"
+                                  loading="lazy"
+                                />
+                                <span className="reward-card-name">{product.name}</span>
+                                <span className="reward-card-meta">{product.category}</span>
+                                <span className="reward-card-price">${product.price}</span>
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                        <div className="reward-group">
+                          <p className="reward-group-title">Comida barata</p>
+                          <div className="reward-grid">
+                            {rewardOptions.cheapFood.map(product => (
+                              <button
+                                key={product.id}
+                                type="button"
+                                className={`reward-card ${rewardSelection.drinkId === product.id ? 'selected' : ''}`}
+                                onClick={() => {
+                                  setConfirmError(null)
+                                  selectRewardDrink(product)
+                                  setShowRewardGrid(false)
+                                }}
+                                aria-pressed={rewardSelection.drinkId === product.id}
+                              >
+                                <img
+                                  src={product.image}
+                                  alt={product.name}
+                                  className="reward-card-image"
+                                  loading="lazy"
+                                />
+                                <span className="reward-card-name">{product.name}</span>
+                                <span className="reward-card-meta">{product.category}</span>
+                                <span className="reward-card-price">${product.price}</span>
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                        <p className="reward-note">Al canjear se descuentan 50 CafePuntos</p>
+                      </div>
+                    )}
+
+                    {rewardSelection.useReward && !showRewardGrid && rewardItem && (
+                      <div className="reward-summary">
+                        <div className="reward-summary-card">
+                          <img
+                            src={rewardItem.image}
+                            alt={rewardItem.rewardOriginalName || rewardItem.name}
+                            className="reward-summary-image"
+                            loading="lazy"
+                          />
+                          <div className="reward-summary-info">
+                            <p className="reward-summary-name">
+                              {rewardItem.rewardOriginalName || rewardItem.name}
+                            </p>
+                            <p className="reward-summary-meta">{rewardItem.category}</p>
+                          </div>
+                        </div>
+                        <div className="reward-summary-actions">
+                          <button
+                            type="button"
+                            className="reward-change"
+                            onClick={() => setShowRewardGrid(true)}
+                          >
+                            Cambiar
+                          </button>
+                          <button
+                            type="button"
+                            className="reward-remove"
+                            onClick={() => {
+                              clearRewardSelection()
+                              setRewardUse(false)
+                              setShowRewardGrid(false)
+                            }}
+                          >
+                            Eliminar
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <p className="reward-message">
+                    Te faltan {rewardRemaining} CafePuntos para canjear tu producto gratis.
+                  </p>
+                )}
               </div>
 
               {/* Avisos */}

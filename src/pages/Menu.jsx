@@ -2,6 +2,7 @@ import { useState, useContext, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { products } from '../data/menu'
 import { CartContext } from '../context/CartContext'
+import GamificationPanel from '../components/GamificationPanel'
 import './Menu.css'
 
 const Menu = () => {
@@ -42,6 +43,10 @@ const Menu = () => {
         <h1 className="menu-title">Menú Restaurante</h1>
         <p className="menu-subtitle">Selecciona tu categoría favorita</p>
       </header>
+
+      <section className="menu-gamification">
+        <GamificationPanel variant="compact" />
+      </section>
 
       {/* Filtro de categorías */}
       <nav className="categories-section" aria-label="Filtrar por categoría">
@@ -131,7 +136,7 @@ const Menu = () => {
                   title="Agregar sin personalizar. Click en el producto para más opciones."
                 >
                   <span className="btn-text">
-                    {addedProduct === product.id ? '✓ Agregado' : '+'}
+                    {addedProduct === product.id ? '✓' : '+'}
                   </span>
                 </button>
               ) : (
