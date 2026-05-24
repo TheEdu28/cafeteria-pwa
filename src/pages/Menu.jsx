@@ -40,7 +40,7 @@ const Menu = () => {
   return (
     <div className="menu-container">
       <header className="menu-header">
-        <h1 className="menu-title">Menú Restaurante</h1>
+        <h1 className="menu-title">Menú</h1>
         <p className="menu-subtitle">Selecciona tu categoría favorita</p>
       </header>
 

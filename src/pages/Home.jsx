@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <div className="home-container">
       <header className="home-header">
-        <h1>Bienvenido a Cafetería</h1>
+        <h1>Bienvenido a U-COFFEE</h1>
         <p className="home-subtitle">Explora nuestro menú y realiza tu pedido</p>
       </header>
 

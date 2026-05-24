@@ -2,7 +2,6 @@ import { Link, useLocation } from 'react-router-dom'
 import { useContext } from 'react'
 import { CartContext } from '../context/CartContext'
 import {
-  CoffeeIcon,
   ShoppingCartIcon,
   HomeIcon,
   MenuIcon,
@@ -21,9 +20,8 @@ const Layout = ({ children }) => {
       {/* Navbar superior */}
       <header className="navbar" role="banner">
         <nav className="navbar-content" aria-label="Navegación principal">
-          <Link to="/" className="navbar-logo" aria-label="Cafetería PWA - Inicio">
-            <CoffeeIcon size={28} className="logo-icon" />
-            <span className="logo-text">Cafetería</span>
+          <Link to="/" className="navbar-logo" aria-label="U-COFFEE - Inicio">
+            <img src="/ImagenesMenu/Logo.png" alt="U-COFFEE logo" className="logo-img" />
           </Link>
           <div className="navbar-spacer"></div>
           <Link to="/cart" className="navbar-cart" aria-label={`Carrito${itemCount > 0 ? ` con ${itemCount} artículos` : ''}`}>

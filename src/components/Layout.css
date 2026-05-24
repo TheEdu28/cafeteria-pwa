@@ -24,13 +24,13 @@
   max-width: 1280px;
   margin: 0 auto;
   width: 100%;
-  padding: 1rem 1.5rem;
+  padding: 0.5rem 0.75rem;
   gap: 1rem;
 }
 
 @media (max-width: 768px) {
   .navbar-content {
-    padding: 0.875rem 1rem;
+    padding: 0.5rem 0.5rem;
   }
 }
 
@@ -52,6 +52,23 @@
 
 .logo-icon {
   flex-shrink: 0;
+}
+
+/* Logo image (replace /logo.png in public/) */
+.logo-img {
+  width: 96px;
+  max-height: 96px;
+  height: auto;
+  display: block;
+  border-radius: 6px;
+  object-fit: contain;
+}
+
+@media (max-width: 640px) {
+  .logo-img {
+    width: 56px;
+    max-height: 56px;
+  }
 }
 
 .logo-text {
@@ -298,7 +315,7 @@
 /* Responsive: desktop */
 @media (min-width: 768px) {
   .navbar-content {
-    padding: 1.5rem;
+    padding: 0.75rem 1rem;
   }
 
   .main-content {
