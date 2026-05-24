@@ -88,15 +88,8 @@ const ProductDetail = () => {
         <div className="product-main">
           {/* Imagen del producto */}
           <div className="product-image-container">
-            <div 
-              className="product-image"
-              role="img"
-              aria-label={`${product.name} - ${product.category}`}
-              style={{
-                background: `linear-gradient(135deg, #667eea 0%, #764ba2 100%)`
-              }}
-            >
-              <span className="product-icon">🍽️</span>
+            <div className="product-image" role="img" aria-label={`${product.name} - ${product.category}`}>
+              <img src={product.image} alt={`${product.name}`} className="product-image-img" />
             </div>
           </div>
 
