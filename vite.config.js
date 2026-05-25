@@ -11,8 +11,8 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       manifest: {
-        name: 'UniSnack',
-        short_name: 'UniSnack',
+        name: 'U-COFFEE',
+        short_name: 'U-COFFEE',
         theme_color: '#ffffff',
         icons: [
           {

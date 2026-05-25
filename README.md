@@ -97,8 +97,8 @@ git push origin main
 
 ### En Android (Chrome)
 1. Abre la aplicación en Chrome
-2. Toca el menú (⋮) → "Instalar aplicación"
-3. Toca "Instalar"
+2. Toca el menú (⋮) → "Agregar a la pantalla principal"
+3. Aparecerá un mensaje para poner un nombre al acceso directo, confirma y acepta"
 4. La app aparecerá en tu pantalla de inicio
 
 ### En iOS (Safari)
@@ -109,8 +109,9 @@ git push origin main
 
 ### En Desktop
 1. Abre la aplicación en navegador
-2. En la barra de direcciones aparecerá el ícono de instalación
-3. Haz clic para instalar como aplicación de escritorio
+2. Toca (⋮) → Busca "Transmitir, guardar y compartir" → "Instalar página como app..."
+3. Aparecerá un mensaje para poner un nombre a la app, confirma e Instala"
+4. La app aparecerá en tu pantalla de escritorio o buscando la aplicación con el nombre que le diste
 
 ## 📁 Estructura del Proyecto
 
@@ -127,8 +128,8 @@ cafeteria-pwa/
 │   ├── main.jsx
 │   └── index.css
 ├── public/                 # Archivos estáticos
-│   ├── icon-192.png       # Icono PWA 192x192
-│   ├── icon-512.png       # Icono PWA 512x512
+│   ├── favicon.svg       # Iconos por defecto de Vite
+│   ├── icons.svg       # Icono por defecto de Vite
 │   └── ImagenesMenu/      # Imágenes de productos
 ├── docs/                   # Documentación adicional
 ├── index.html
