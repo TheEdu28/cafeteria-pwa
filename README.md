@@ -90,7 +90,7 @@ La aplicación está desplegada automáticamente en Vercel:
 ```bash
 git add .
 git commit -m "Tu mensaje de commit"
-git push origin rama-eduardo
+git push origin main
 ```
 
 ## 📱 Instalación como PWA
