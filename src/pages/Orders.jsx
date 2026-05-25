@@ -11,15 +11,25 @@ const Orders = () => {
   const [expandedOrder, setExpandedOrder] = useState(null)
   const [notification, setNotification] = useState(null)
   const [confirmModal, setConfirmModal] = useState(null) // { type, orderId, orderNumber }
+  const [sortOrder, setSortOrder] = useState('recent') // 'recent' | 'oldest'
 
-  // Agrupar y clasificar pedidos
+  // Agrupar pedidos por estado
   const getOrdersByStatus = () => {
     const pending = completedOrders.filter(order => order.status === 'pending')
     const ready = completedOrders.filter(order => order.status === 'ready')
     const completed = completedOrders.filter(order => order.status === 'completed')
     const cancelled = completedOrders.filter(order => order.status === 'cancelled')
-    
+
     return { pending, ready, completed, cancelled }
+  }
+
+  // Ordenar arrays de pedidos según `sortOrder`
+  const sortOrders = (ordersArr) => {
+    return ordersArr.slice().sort((a, b) => {
+      const ta = new Date(a.timestamp).getTime()
+      const tb = new Date(b.timestamp).getTime()
+      return sortOrder === 'recent' ? tb - ta : ta - tb
+    })
   }
 
   const getStatusInfo = (status) => {
@@ -156,9 +166,24 @@ const Orders = () => {
         {/* Pedidos en preparación */}
         {pending.length > 0 && (
           <div className="orders-section">
-            <h2 className="section-title">En Preparación</h2>
+            <div className="orders-section-header">
+              <h2 className="section-title">En Preparación</h2>
+              <div className="orders-controls inline">
+                <label htmlFor="order-sort" className="sort-label sr-only">Ordenar pedidos</label>
+                <select
+                  id="order-sort"
+                  className="sort-select"
+                  value={sortOrder}
+                  onChange={(e) => setSortOrder(e.target.value)}
+                  aria-label="Ordenar pedidos"
+                >
+                  <option value="recent">Más recientes</option>
+                  <option value="oldest">Más antiguos</option>
+                </select>
+              </div>
+            </div>
             <div className="orders-list">
-              {pending.map(order => {
+              {sortOrders(pending).map(order => {
                 const statusInfo = getStatusInfo(order.status)
                 const isExpanded = expandedOrder === order.id
 
@@ -293,7 +318,7 @@ const Orders = () => {
           <div className="orders-section">
             <h2 className="section-title">Listo para Recoger</h2>
             <div className="orders-list">
-              {ready.map(order => {
+              {sortOrders(ready).map(order => {
                 const statusInfo = getStatusInfo(order.status)
                 const isExpanded = expandedOrder === order.id
 
@@ -406,7 +431,7 @@ const Orders = () => {
           <div className="orders-section">
             <h2 className="section-title">Pedidos Anteriores</h2>
             <div className="orders-list">
-              {completed.map(order => {
+              {sortOrders(completed).map(order => {
                 const statusInfo = getStatusInfo(order.status)
                 const isExpanded = expandedOrder === order.id
 
@@ -530,7 +555,7 @@ const Orders = () => {
           <div className="orders-section">
             <h2 className="section-title">Cancelados</h2>
             <div className="orders-list">
-              {cancelled.map(order => (
+              {sortOrders(cancelled).map(order => (
                 <div key={order.id} className="order-card cancelled">
                   <div className="order-header-info">
                     <div className="order-info">
