@@ -9,7 +9,7 @@ Sistema de pedidos para cafetería universitaria desarrollado como Progressive W
 ## 📚 Información del Curso
 
 - **Materia:** Diseño y Evaluación de Interfaces de Usuario
-- **Profesor:** SANTANA MANCILLA PEDRO CESAR
+- **Profesor:** Santana Mancilla Pedro Cesar
 - **Integrantes del Equipo:**
   - Blanco Schulte Liz Fernanda
   - Garibay Solorzano Salvador
